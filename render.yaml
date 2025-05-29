@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: ctfd
+    env: docker
+    plan: free
+    branch: main
+    repo: https://github.com/tu_usuario/CTFd
+    dockerfilePath: ./Dockerfile
+    buildFilter:
+      paths:
+        - Dockerfile
+        - docker-entrypoint.sh
+    healthCheckPath: /
+    autoDeploy: true
