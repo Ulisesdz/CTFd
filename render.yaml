@@ -2,6 +2,7 @@ services:
   - type: web
     name: ctfd
     env: python
+    plan: free
     buildCommand: |
       pip install -r requirements.txt
       mkdir -p /tmp/uploads
@@ -15,3 +16,8 @@ services:
           property: connectionString
       - key: UPLOAD_FOLDER
         value: /tmp/uploads
+
+databases:
+  - name: ctfd-db
+    databaseName: ctfd
+    user: ctfd
