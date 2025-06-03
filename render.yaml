@@ -4,6 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: |
+      pip install psycopg2-binary
       pip install -r requirements.txt
       mkdir -p /tmp/uploads
       cp -r ./uploads/* /tmp/uploads/
