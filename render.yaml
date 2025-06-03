@@ -1,25 +1,17 @@
 services:
   - type: web
-    name: ctfd-web
+    name: ctfd
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn "CTFd:create_app()" --bind 0.0.0.0:10000 --worker-class gevent --workers 1
+    buildCommand: |
+      pip install -r requirements.txt
+      mkdir -p /tmp/uploads
+      cp -r ./uploads/* /tmp/uploads/
+    startCommand: |
+      gunicorn "CTFd:create_app()" --bind 0.0.0.0:10000 --worker-class gevent --workers 1
     envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: ctfd-db
           property: connectionString
       - key: UPLOAD_FOLDER
-        value: /var/uploads
-    disk:
-      name: ctfd-uploads
-      mountPath: /var/uploads
-      sizeGB: 1
-    plan: free
-    region: oregon
-    autoDeploy: true
-
-databases:
-  - name: ctfd-db
-    region: oregon
-    plan: free
+        value: /tmp/uploads
