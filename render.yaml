@@ -19,5 +19,6 @@ services:
 
 databases:
   - name: ctfd-db
+    plan: free
     databaseName: ctfd
     user: ctfd
